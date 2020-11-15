@@ -82,16 +82,11 @@ dbSendQuery(con, "CREATE TABLE title_principals (
   PRIMARY KEY (tconst, ordering),
   FOREIGN KEY (tconst) REFERENCES title_basics(tconst)
 )")
-dbSendQuery(con, "CREATE TABLE title_director(
+dbSendQuery(con, "CREATE TABLE title_position(
   tconst VARCHAR(255) NOT NULL,
   nconst VARCHAR(255) NOT NULL,
-  PRIMARY KEY (tconst, nconst),
-  FOREIGN KEY (tconst) REFERENCES title_basics(tconst),
-  FOREIGN KEY (nconst) REFERENCES name_basics(nconst)
-)")
-dbSendQuery(con, "CREATE TABLE title_writer(
-  tconst VARCHAR(255) NOT NULL,
-  nconst VARCHAR(255) NOT NULL,
+  isDirector INT NOT NULL,
+  isWriter INT NOT NULL,
   PRIMARY KEY (tconst, nconst),
   FOREIGN KEY (tconst) REFERENCES title_basics(tconst),
   FOREIGN KEY (nconst) REFERENCES name_basics(nconst)
@@ -123,7 +118,14 @@ dbSendQuery(con, "CREATE TABLE name_profession(
   FOREIGN KEY (nconst) REFERENCES name_basics(nconst),
   FOREIGN KEY (name) REFERENCES profession(name)
 )")
-res <- dbSendQuery(con, "SELECT * FROM type")
+title_basics <- read.table(file="title_basics.tsv", sep = '\t', fill = TRUE, header = TRUE)
+name_basics <- read.table(file="name_basics.tsv", sep = '\t', fill = TRUE, header = TRUE)
+title_akas <- read.table(file="title_akas.tsv", sep = '\t', fill = TRUE, header = TRUE)
+title_crew <- read.table(file="title_crew.tsv", sep = '\t', fill = TRUE, header = TRUE)
+title_episode <- read.table(file="title_episode.tsv", sep = '\t', fill = TRUE, header = TRUE)
+title_principals <- read.table(file="title_principals.tsv", sep = '\t', fill = TRUE, header = TRUE)
+title_ratings <- read.table(file="title_ratings.tsv", sep = '\t', fill = TRUE, header = TRUE)
+dbWriteTable(con, "title_basics", title_basics)
+res <- dbSendQuery(con, "SELECT * FROM title_basics")
 dbFetch(res)
-dbClearResult(res)
 ```
