@@ -45,8 +45,8 @@ dbSendQuery(con, "CREATE TABLE title_ratings (
 dbSendQuery(con, "CREATE TABLE title_basics (
   tconst VARCHAR(255),
   titleType VARCHAR(255),
-  primaryType VARCHAR(255),
-  originalType VARCHAR(255),
+  primaryTitle VARCHAR(255),
+  originalTitle VARCHAR(255),
   isAdult INT,
   startYear VARCHAR(255),
   endYear VARCHAR(255),
