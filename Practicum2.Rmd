@@ -126,7 +126,7 @@ title_episode <- read.table(file="title_episode.tsv", sep = '\t', fill = TRUE, h
 title_principals <- read.table(file="title_principals.tsv", sep = '\t', fill = TRUE, header = TRUE)
 title_ratings <- read.table(file="title_ratings.tsv", sep = '\t', fill = TRUE, header = TRUE)
 dbWriteTable(con, "title_basics_original", title_basics)
-res <- dbSendQuery(con, "SELECT * FROM title_basics")
+res <- dbSendQuery(con, "SELECT * FROM title_basics_original")
 dbFetch(res)
 dbClearResult(res)
 ```
